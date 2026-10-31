@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKIP_DIRS = {'.git', '__pycache__', '.pytest_cache', 'node_modules'}
 TEXT_EXTENSIONS = {'.md', '.mmd', '.py', '.ps1', '.sh', '.yml', '.yaml', '.example', '.txt', '.gitignore', '.gitattributes'}
-EXPECTED_TEXT_NAMES = {'LICENSE', 'README.md', 'README.he.md', '.gitignore', '.gitattributes'}
+EXPECTED_TEXT_NAMES = {'LICENSE', 'README.md', '.gitignore', '.gitattributes'}
 
 PATTERNS = {
     'email': re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'),

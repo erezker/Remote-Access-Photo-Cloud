@@ -1,10 +1,8 @@
 # Remote Access & Self-Hosted Photo Cloud
 
-A privacy-minded home-lab project that combines **secure remote Windows access**, **Wake-on-LAN (WoL) through an Android SSH relay**, and a **self-hosted Immich photo server** accessed from a Mac and iPhone over Tailscale.
+A home-lab infrastructure project combining **secure remote Windows access**, **Wake-on-LAN (WoL) through an Android SSH relay**, and a **self-hosted Immich photo server** accessed from a Mac and iPhone over Tailscale.
 
-> **Repository safety:** This is a reproducible, sanitized project template—not an export of live machine configurations. No personal hostnames, IP addresses, MAC addresses, usernames, email addresses, passwords, SSH private keys, or Immich API keys are included.
-
-[עברית / Hebrew overview](README.he.md) · [Architecture](docs/architecture.mmd) · [Operations](docs/OPERATIONS.md) · [Security](docs/SECURITY.md)
+[Architecture](docs/architecture.mmd) · [Operations](docs/OPERATIONS.md) · [Security](docs/SECURITY.md)
 
 ## What it does
 
@@ -58,16 +56,15 @@ See [Mermaid architecture](docs/architecture.mmd), [remote wake sequence](docs/r
 ## Repository contents
 
 ```text
-remote-photo-cloud/
-├── README.md                 Project overview (English)
-├── README.he.md              Short Hebrew guide
+Remote-Access-Photo-Cloud/
+├── README.md                 Project overview
 ├── .gitignore                Excludes secrets, keys, local config and photos
 ├── config/
 │   ├── mac.env.example       Mac connection placeholders
 │   ├── ssh-config.example    SSH alias using a key (no real destination)
 │   └── wol.env.example       Phone-only WoL configuration placeholders
 ├── immich/
-│   ├── .env.example          Sanitized Immich configuration
+│   ├── .env.example          Immich environment settings example
 │   └── download-compose.ps1 Download upstream Docker Compose file
 ├── scripts/
 │   ├── mac/                 Wake remote PC, test connections, verify photo source
@@ -109,13 +106,13 @@ For the complete copy, permission, and recovery commands, see [Operations](docs/
 ### C. Immich on the Windows desktop
 
 1. Install Docker Desktop using the **WSL2** backend.
-2. Download Immich's **official** `docker-compose.yml` and `example.env` (see `immich/download-compose.ps1`). The downloaded upstream Compose file is **not** bundled or modified by this repository.
+2. Download Immich's **official** `docker-compose.yml` and `example.env` (see `immich/download-compose.ps1`). Use the official upstream Compose file.
 3. In the local `.env`, put media on your attached NTFS disk, and set `DB_DATA_LOCATION=pgdata`. Declare `pgdata:` under top-level Compose `volumes` to use a Docker-managed Linux volume; don't place PostgreSQL directly on NTFS.
 4. Run `docker compose config -q`, then `docker compose up -d` and `docker compose ps`. Create the admin account through the local Immich UI.
 5. Upload one disposable sample image and verify that it appears on the external storage disk.
 6. With Tailscale connected, run `tailscale serve --bg 2283` on Windows; access the HTTPS URL shown by Tailscale from the Mac/iPhone. **Use Serve, not Funnel.**
 
-> The sanitized `immich/.env.example` is a reference, **not a functional secret file**. Generate a unique database password locally and do not commit it. Avoid overwriting an existing working Immich `.env` or compose file.
+Configure a private `.env` with a unique database password. Preserve your existing working configuration when updating Immich.
 
 ### D. Apple Photos → Immich (planned automatic sync)
 
@@ -173,8 +170,6 @@ See [Security](docs/SECURITY.md) for the threat model and [Operations](docs/OPER
 - [ImmiBridge upstream repository](https://github.com/emerysilb/immibridge)
 - [Termux upstream](https://github.com/termux/termux-app)
 
-This repository includes **original glue scripts and documentation only**, not copied source code from Tailscale, Immich, Docker, Termux, or ImmiBridge.
-
 ## License
 
-[MIT](LICENSE) for the original scripts and documentation in this repository. Third-party tools are governed by their own licenses.
+[MIT](LICENSE)
