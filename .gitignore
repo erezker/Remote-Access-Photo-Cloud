@@ -1,0 +1,51 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.env.local
+*.local.env
+config/mac.env.local
+config/wol.env
+*secret*
+*credentials*
+*.pem
+*.p12
+*.pfx
+*.key
+id_rsa*
+id_ed25519*
+android_wol
+
+# Live or copied upstream configuration (avoid accidental real secrets)
+immich/docker-compose.yml
+immich/example.env
+
+# Personal content, media, and database artifacts
+*.photoslibrary/
+*.photoslibrary
+*.sqlite
+*.sqlite3
+*.db
+*.heic
+*.jpg
+*.jpeg
+*.png
+*.mov
+*.mp4
+*.gpr
+*.log
+media/
+data/
+backups/
+
+# Editor / OS / Python generated files
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.pytest_cache/
+.vscode/
+.idea/
