@@ -1,0 +1,23 @@
+flowchart LR
+  subgraph Remote[Remote network]
+    Mac["Mac laptop<br/>Apple Photos · RDP · ImmiBridge"]
+    iPhone["iPhone<br/>Immich mobile app"]
+  end
+  subgraph Home[Home LAN]
+    Android["Android relay<br/>Tailscale · Termux · SSH"]
+    Win["Windows desktop<br/>RDP · Docker Desktop"]
+    Immich["Immich server"]
+    Media[("External NTFS disk<br/>Photo originals / video")]
+    Db[("Docker Linux volume<br/>PostgreSQL database")]
+  end
+  Tail["Tailscale private tailnet"]
+  Mac -->|"RDP to Windows"| Tail
+  Mac -->|"SSH to Android relay"| Tail
+  iPhone -->|"HTTPS via Tailscale Serve"| Tail
+  Mac -.->|"ImmiBridge Smart backup · pending"| Tail
+  Tail -->|"SSH over tailnet"| Android
+  Tail -->|"RDP · Serve HTTPS"| Win
+  Android -->|"Wake-on-LAN UDP broadcast on home LAN"| Win
+  Win --> Immich
+  Immich --> Media
+  Immich --> Db

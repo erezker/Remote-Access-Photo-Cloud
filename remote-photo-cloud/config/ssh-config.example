@@ -1,0 +1,10 @@
+# Add this block to your PRIVATE ~/.ssh/config after replacing placeholders.
+# Never commit the real edited SSH config or your private key.
+Host android-wol
+    HostName PHONE_TAILSCALE_DNS_NAME
+    User TERMUX_USER
+    Port 8022
+    IdentityFile ~/.ssh/android_wol
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+    UseKeychain yes

@@ -1,0 +1,16 @@
+sequenceDiagram
+  autonumber
+  participant User as Mac user
+  participant Mac as macOS terminal
+  participant VPN as Tailscale private network
+  participant Phone as Android / Termux SSH
+  participant Win as Windows desktop
+  User->>Mac: Run wake-windows.sh
+  Mac->>VPN: SSH using locally held private key
+  VPN->>Phone: Authenticated SSH on private tailnet
+  Phone->>Phone: Read local WoL target configuration
+  Phone-->>Win: WoL magic packet (home LAN broadcast)
+  Note over Win: Wired NIC and BIOS/UEFI must permit WoL
+  Win-->>VPN: Tailscale comes online after Windows boot
+  User->>VPN: Connect to Windows using RDP client
+  VPN->>Win: Private RDP session

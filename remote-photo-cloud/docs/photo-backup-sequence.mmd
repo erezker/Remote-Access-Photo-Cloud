@@ -1,0 +1,18 @@
+sequenceDiagram
+  autonumber
+  participant Drive as External Mac Photos drive
+  participant Mac as Mac / Apple Photos
+  participant Bridge as ImmiBridge
+  participant VPN as Tailscale Serve HTTPS
+  participant Server as Immich on Windows
+  participant HDD as External NTFS photo disk
+  participant DB as Docker-managed PostgreSQL
+  Note over Drive,Bridge: Automated schedule NOT YET ENABLED
+  Drive->>Mac: Mount and verify correct .photoslibrary
+  Mac->>Bridge: Grant Photos access
+  Bridge->>Bridge: Smart mode + Dry Run + small pilot
+  Bridge-->>VPN: HTTPS API upload (future scheduled backup)
+  VPN-->>Server: Private reverse proxy to Immich
+  Server->>HDD: Save photo/video files
+  Server->>DB: Record metadata and album relations
+  Note over Server,DB: Back up the media AND database separately
